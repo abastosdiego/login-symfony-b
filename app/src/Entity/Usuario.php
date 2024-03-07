@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_NIP', fields: ['nip'])]
+#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -17,7 +17,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
-    private ?string $nip = null;
+    private ?string $username = null;
 
     /**
      * @var list<string> The user roles
@@ -31,9 +31,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
-    public function __construct(string $nip)
+    public function __construct(string $username)
     {
-        $this->nip = $nip;
+        $this->username = $username;
     }
 
     public function getId(): ?int
@@ -41,9 +41,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->id;
     }
 
-    public function getNip(): ?string
+    public function getUsername(): ?string
     {
-        return $this->nip;
+        return $this->username;
     }
 
     /**
@@ -53,7 +53,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->nip;
+        return (string) $this->username;
     }
 
     /**
